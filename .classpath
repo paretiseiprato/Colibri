@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:/EclipseProject/Colibri2/src"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="E:/EclipseProject/Colibri2/src/EasyModbusJava.jar"/>
+	<classpathentry kind="lib" path="E:/EclipseProject/Colibri2/src/EasyModbusJavaServer.jar"/>
+	<classpathentry kind="lib" path="N:/Lib/Java/sqljdbc_6.0/ita/sqljdbc42.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
