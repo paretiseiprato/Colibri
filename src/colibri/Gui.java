@@ -92,7 +92,7 @@ public class Gui extends javax.swing.JFrame {
         			    	
         			       TxtMetri.setText(dModbus.Metri);
         			       TxtPeso.setText(dModbus.Peso);
-        			       TxtFlag.setText(dSql.Disposizione);
+        			       TxtFlag.setText(String.valueOf(dSql.Disposizione) );
         			     }
         			  }).start();
         		  
