@@ -20,6 +20,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import java.awt.Component;
 /**
  *
  * @author Damiano Pareti
@@ -52,14 +55,6 @@ public class Gui extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	
-        TxtMetri = new javax.swing.JTextField();
-        TxtMetri.setPreferredSize(new Dimension(100, 60));
-        TxtPeso = new javax.swing.JTextField();
-        TxtPeso.setMinimumSize(new Dimension(0, 0));
-        TxtPeso.setPreferredSize(new Dimension(100, 200));
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(200, 200));
@@ -94,33 +89,55 @@ public class Gui extends javax.swing.JFrame {
                 //Ativazione del timer di lettura ogni 100 ms
         		  new javax.swing.Timer(100, new ActionListener() {
         			     public void actionPerformed(ActionEvent e) {
+        			    	
         			       TxtMetri.setText(dModbus.Metri);
         			       TxtPeso.setText(dModbus.Peso);
+        			       TxtFlag.setText(dSql.Disposizione);
         			     }
         			  }).start();
         		  
         		  
         	}
         });
-
-        TxtMetri.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        TxtMetri.setText("99.00");
-        TxtMetri.setName("TxtMetri"); // NOI18N
-
-        TxtPeso.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        TxtPeso.setText("99.99");
-        TxtPeso.setName("TxtPeso"); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel1.setText("METRI");
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+        getContentPane().add(panel);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel_1.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        panel.add(panel_1);
+        
+        TxtFlag = new JTextField();
+        panel_1.add(TxtFlag);
+        TxtFlag.setColumns(10);
+        
+        textField = new JTextField();
+        panel_1.add(textField);
+        textField.setColumns(10);
+        jLabel2 = new javax.swing.JLabel();
+        panel.add(jLabel2);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel2.setText("PESO");
-        getContentPane().add(jLabel2);
-        getContentPane().add(TxtPeso);
-        getContentPane().add(jLabel1);
-        getContentPane().add(TxtMetri);
+        TxtPeso = new javax.swing.JTextField();
+        panel.add(TxtPeso);
+        TxtPeso.setMinimumSize(new Dimension(0, 0));
+        TxtPeso.setPreferredSize(new Dimension(100, 200));
+        
+                TxtPeso.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+                TxtPeso.setText("99.99");
+                TxtPeso.setName("TxtPeso");
+                jLabel1 = new javax.swing.JLabel();
+                panel.add(jLabel1);
+                
+                        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+                        jLabel1.setText("METRI");
+                        
+        TxtMetri = new javax.swing.JTextField();
+        panel.add(TxtMetri);
+        TxtMetri.setPreferredSize(new Dimension(100, 60));
+        
+                TxtMetri.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+                TxtMetri.setText("99.00");
+                TxtMetri.setName("TxtMetri"); // NOI18N
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,6 +192,10 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField TxtMetri;
     private javax.swing.JTextField TxtPeso;
+    private final JPanel panel = new JPanel();
+    private final JPanel panel_1 = new JPanel();
+    private JTextField TxtFlag;
+    private JTextField textField;
     // End of variables declaration//GEN-END:variables
     
    
