@@ -6,7 +6,7 @@
 package colibri;
 
 
-import java.sql.*;
+
 import java.awt.Dimension;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -29,11 +29,12 @@ public class Gui extends javax.swing.JFrame {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 
-	String connectionUrl = "jdbc:sqlserver://localhost:1433;" + "databaseName=AdventureWorks;integratedSecurity=true;";
-    /**
-     * Creates new form Gui
-     */
+
     public Gui() {
     	setUndecorated(true);
     	setResizable(false);
@@ -84,6 +85,11 @@ public class Gui extends javax.swing.JFrame {
                 dModbus ModbusLoop = new dModbus();
                 ModbusLoop.setDaemon(true);
                 ModbusLoop.start();
+                
+                dSql SqlLoop = new dSql();
+                SqlLoop.Connect();
+                SqlLoop.setDaemon(true);
+                SqlLoop.start();
                 
                 //Ativazione del timer di lettura ogni 100 ms
         		  new javax.swing.Timer(100, new ActionListener() {

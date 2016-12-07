@@ -8,13 +8,14 @@ public class dSql extends Thread{
 	Connection Conn = null;
 	Statement Stant = null;
 	ResultSet Result = null;
+	static String Disposizione;
 	
 	public int Connect() {
 	
 	try {
 		
 		DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
-		String dbURL = "jdbc:sqlserver://localhost\\sqlexpress;user=sa;password=secret";
+		String dbURL = "jdbc:sqlserver://WIN-8TQS8MD3J80\\SQLEXPRESS;user=takoda;password=tkd00tkd";
 		Conn = DriverManager.getConnection(dbURL);
 		if (Conn != null) {
 		    System.out.println("Connected");
@@ -32,37 +33,32 @@ public class dSql extends Thread{
 	public void run() {
 	
 
-		try {
-			while (Result.next()) {
-				System.out.println(Result.getString(4) + " " + Result.getString(6));
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		int I = 0;
+
+	
 		
-		String SQL = "SELECT TOP 10 * FROM Person.Contact";
+		String SQL = "SELECT Disposizione FROM TblFlag";
+		
 		
 		try {
 			Stant = Conn.createStatement();
 			Result = Stant.executeQuery(SQL);
+			while (Result.next()) {
+	            System.out.println(Result.getString(1));
+	         }
 		} catch (SQLException e1) {
 		
 			e1.printStackTrace();
 		}
 		
-	
-		while (true) {
-			I++;
-			System.out.println("Task" + I );
-			try {
+		while (true) 
+		{			
+			try
+			{
 				sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+			} catch (InterruptedException e)
+			{				
 				e.printStackTrace();
-			}
-			
+			}			
 		}
 			
 		}
