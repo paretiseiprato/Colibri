@@ -19,12 +19,7 @@ public class dModbus extends Thread{
 	
 	
 	@Override
-	public void run() {
-	
-		
-	
-
-		
+	public void run() {		
 	
 		while (true) {
 			

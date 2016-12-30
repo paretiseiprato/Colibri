@@ -3,6 +3,8 @@ package colibri;
 import java.sql.*;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 
+import ModbusServer.gui.NewJFrame;
+
 public class dSql extends Thread{
 	
 	Connection Conn = null;
@@ -14,11 +16,13 @@ public class dSql extends Thread{
 	static int Disposizione;
 	String dbURL;
 	int Status;
+	Modbus ModbusData = new Modbus();
 	
 	public int Connect() {
 	
 	try {
 		
+		//Inizializzazione del driver sqlserver
 		DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
 		dbURL = "jdbc:sqlserver://192.168.56.133:1433;instance=SQLEXPRESS;databaseName=TestEssetre;user=takoda;password=tkd00tkd";
 		Conn = DriverManager.getConnection(dbURL);
@@ -38,7 +42,7 @@ public class dSql extends Thread{
 	}
 	//return 0;
 	}
-	
+///////////////////////////////////////////
 	
 	@Override
 	public void run() {
@@ -47,13 +51,14 @@ public class dSql extends Thread{
 
 	
 		
-		String SQL = "SELECT * FROM TblFlag WHERE id = 2";
+		String SQL = "SELECT * FROM TblFlag WHERE idArrotolatore = 2";
 		
 
 		while (true) 
 		{			
 			try
 			{
+				//creo query ciclica x attivazione scrittura
 				Stant = Conn.createStatement();			
 				Result = Stant.executeQuery(SQL);
 				
@@ -100,6 +105,17 @@ public class dSql extends Thread{
 						case 2:
 							break;
 						case 3:
+							ModbusData.Reset();
+				try {
+					ResetFlag = Conn.createStatement();
+					String QueryReset = "UPDATE TblFlag SET FlagStato = '0' WHERE idArrotolatore = 2";																	
+					ResetFlag.executeUpdate(QueryReset);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
+							
 							break;
 						default:
 							break;

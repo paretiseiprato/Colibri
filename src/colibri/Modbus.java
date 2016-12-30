@@ -6,7 +6,10 @@
 
 package colibri;
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 
+import Exceptions.ModbusException;
 import ModbusClient.ModbusClient;
 
 /**
@@ -15,7 +18,13 @@ import ModbusClient.ModbusClient;
  */
 public class Modbus{
     
-    ModbusClient modbusClient;
+    
+	ModbusClient modbusClient;
+	//int[] Uno = {1};
+	
+	//int InvertData = ModbusClient.ConvertRegistersToDouble(Uno, ModbusClient.RegisterOrder.HighLow);
+	
+	 
     public Modbus() {
         modbusClient = new ModbusClient("127.0.0.1", 502);
         modbusClient.setConnectionTimeout(3000);
@@ -40,6 +49,12 @@ public class Modbus{
             
         }
     }
+	 public void Reset(){
+		
+	
+	
+		
+	}
     
     
     

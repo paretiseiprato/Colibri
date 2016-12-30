@@ -81,6 +81,7 @@ public class Gui extends javax.swing.JFrame {
                 ModbusLoop.setDaemon(true);
                 ModbusLoop.start();
                 
+              //Attivazione del Thread Sql
                 dSql SqlLoop = new dSql();
                 SqlLoop.Connect();
                 SqlLoop.setDaemon(true);
