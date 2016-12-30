@@ -20,6 +20,7 @@ public class Modbus{
     
     
 	ModbusClient modbusClient;
+	ModbusClient modbusClient2;
 	//int[] Uno = {1};
 	
 	//int InvertData = ModbusClient.ConvertRegistersToDouble(Uno, ModbusClient.RegisterOrder.HighLow);
@@ -50,9 +51,31 @@ public class Modbus{
         }
     }
 	 public void Reset(){
+		 
+		 int[] NumReset = {0,1};
+		 modbusClient2 = new ModbusClient("127.0.0.1", 502);
+	        modbusClient2.setConnectionTimeout(3000);
+	        try {
+				modbusClient2.Connect();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	try {
+		modbusClient2.WriteMultipleRegisters(6,NumReset);//ModbusClient.ConvertDoubleToTwoRegisters(1, ModbusClient.RegisterOrder.LowHigh)
+		// TODO Auto-generated catch block
 		
-	
-	
+	} catch (SocketException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ModbusException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		
 	}
     
