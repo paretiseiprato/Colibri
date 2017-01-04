@@ -23,6 +23,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JLabel;
 /**
  *
  * @author Damiano Pareti
@@ -102,43 +107,59 @@ public class Gui extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         getContentPane().add(panel);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        panel_1.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        panel.add(panel_1);
-        
-        TxtFlag = new JTextField();
-        panel_1.add(TxtFlag);
-        TxtFlag.setColumns(10);
+        panel.setLayout(null);
         
         textField = new JTextField();
-        panel_1.add(textField);
+        textField.setBounds(0, 0, 86, 20);
+        panel.add(textField);
         textField.setColumns(10);
-        jLabel2 = new javax.swing.JLabel();
-        panel.add(jLabel2);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel2.setText("PESO");
-        TxtPeso = new javax.swing.JTextField();
-        panel.add(TxtPeso);
-        TxtPeso.setMinimumSize(new Dimension(0, 0));
-        TxtPeso.setPreferredSize(new Dimension(100, 200));
-        
-                TxtPeso.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-                TxtPeso.setText("99.99");
-                TxtPeso.setName("TxtPeso");
-                jLabel1 = new javax.swing.JLabel();
-                panel.add(jLabel1);
                 
-                        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-                        jLabel1.setText("METRI");
+                label = new JLabel();
+                label.setBounds(205, 39, 85, 36);
+                panel.add(label);
+                label.setText("PESO");
+                label.setFont(new Font("Tahoma", Font.PLAIN, 36));
+                jLabel2 = new javax.swing.JLabel();
+                jLabel2.setBounds(741, 32, 49, 50);
+                panel.add(jLabel2);
+                
+                        jLabel2.setFont(new Font("Tahoma", Font.PLAIN, 30)); // NOI18N
+                        jLabel2.setText("Mt");
+                        TxtPeso = new javax.swing.JTextField();
+                        TxtPeso.setBounds(300, 39, 130, 36);
+                        panel.add(TxtPeso);
+                        TxtPeso.setMinimumSize(new Dimension(0, 0));
+                        TxtPeso.setPreferredSize(new Dimension(100, 200));
                         
-        TxtMetri = new javax.swing.JTextField();
-        panel.add(TxtMetri);
-        TxtMetri.setPreferredSize(new Dimension(100, 60));
-        
-                TxtMetri.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-                TxtMetri.setText("99.00");
-                TxtMetri.setName("TxtMetri"); // NOI18N
+                                TxtPeso.setFont(new Font("Tahoma", Font.PLAIN, 36)); // NOI18N
+                                TxtPeso.setText("99.99");
+                                TxtPeso.setName("TxtPeso");
+                                jLabel1 = new javax.swing.JLabel();
+                                jLabel1.setBounds(499, 39, 113, 36);
+                                panel.add(jLabel1);
+                                
+                                        jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 36)); // NOI18N
+                                        jLabel1.setText("METRI");
+                                        
+                                        TxtMetri = new javax.swing.JTextField();
+                                        TxtMetri.setBounds(609, 39, 122, 38);
+                                        panel.add(TxtMetri);
+                                        TxtMetri.setPreferredSize(new Dimension(100, 60));
+                                        
+                                                TxtMetri.setFont(new Font("Tahoma", Font.PLAIN, 36)); // NOI18N
+                                                TxtMetri.setText("99.00");
+                                                TxtMetri.setName("TxtMetri"); // NOI18N
+                                                
+                                                TxtFlag = new JTextField();
+                                                TxtFlag.setBounds(376, 8, 86, 20);
+                                                panel.add(TxtFlag);
+                                                TxtFlag.setColumns(10);
+                                                
+                                                JLabel label_1 = new JLabel();
+                                                label_1.setText("Kg");
+                                                label_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+                                                label_1.setBounds(440, 39, 49, 36);
+                                                panel.add(label_1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -194,10 +215,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JTextField TxtMetri;
     private javax.swing.JTextField TxtPeso;
     private final JPanel panel = new JPanel();
-    private final JPanel panel_1 = new JPanel();
     private JTextField TxtFlag;
     private JTextField textField;
-    // End of variables declaration//GEN-END:variables
-    
-   
+    private JLabel label;
 }
