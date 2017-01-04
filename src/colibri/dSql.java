@@ -111,7 +111,8 @@ public class dSql extends Thread{
 					String QueryReset = "UPDATE TblFlag SET FlagStato = '0' WHERE idArrotolatore = 2";																	
 					ResetFlag.executeUpdate(QueryReset);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					// TODO Auto-generated catch blocktakoda
+					
 					e.printStackTrace();
 				}
 					

@@ -28,6 +28,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 /**
  *
  * @author Damiano Pareti
@@ -44,10 +46,11 @@ public class Gui extends javax.swing.JFrame {
 
 
     public Gui() {
+		getContentPane().setSize(new Dimension(800, 120));
     	setUndecorated(true);
     	setResizable(false);
     	getContentPane().setPreferredSize(new Dimension(800, 120));
-    	setPreferredSize(new Dimension(800, 100));
+    	setPreferredSize(new Dimension(800, 110));
         
         initComponents();
     }
@@ -108,58 +111,78 @@ public class Gui extends javax.swing.JFrame {
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         getContentPane().add(panel);
         panel.setLayout(null);
-        
-        textField = new JTextField();
-        textField.setBounds(0, 0, 86, 20);
-        panel.add(textField);
-        textField.setColumns(10);
+                lblMetri = new javax.swing.JLabel();
+                lblMetri.setBounds(499, 47, 111, 41);
+                panel.add(lblMetri);
                 
-                label = new JLabel();
-                label.setBounds(205, 39, 85, 36);
-                panel.add(label);
-                label.setText("PESO");
-                label.setFont(new Font("Tahoma", Font.PLAIN, 36));
-                jLabel2 = new javax.swing.JLabel();
-                jLabel2.setBounds(741, 32, 49, 50);
-                panel.add(jLabel2);
+                        lblMetri.setFont(new Font("Tahoma", Font.PLAIN, 34)); // NOI18N
+                        lblMetri.setText("METRI");
                 
-                        jLabel2.setFont(new Font("Tahoma", Font.PLAIN, 30)); // NOI18N
-                        jLabel2.setText("Mt");
-                        TxtPeso = new javax.swing.JTextField();
-                        TxtPeso.setBounds(300, 39, 130, 36);
-                        panel.add(TxtPeso);
-                        TxtPeso.setMinimumSize(new Dimension(0, 0));
-                        TxtPeso.setPreferredSize(new Dimension(100, 200));
-                        
-                                TxtPeso.setFont(new Font("Tahoma", Font.PLAIN, 36)); // NOI18N
-                                TxtPeso.setText("99.99");
-                                TxtPeso.setName("TxtPeso");
-                                jLabel1 = new javax.swing.JLabel();
-                                jLabel1.setBounds(499, 39, 113, 36);
-                                panel.add(jLabel1);
+                TxtMetri = new javax.swing.JTextField();
+                TxtMetri.setEditable(false);
+                TxtMetri.setBounds(609, 47, 122, 42);
+                panel.add(TxtMetri);
+                TxtMetri.setPreferredSize(new Dimension(100, 60));
+                
+                        TxtMetri.setFont(new Font("Tahoma", Font.PLAIN, 34)); // NOI18N
+                        TxtMetri.setText("99.00");
+                        TxtMetri.setName("TxtMetri");
+                LblMetriUnit = new javax.swing.JLabel();
+                LblMetriUnit.setBounds(741, 54, 49, 36);
+                panel.add(LblMetriUnit);
+                
+                        LblMetriUnit.setFont(new Font("Tahoma", Font.PLAIN, 30)); // NOI18N
+                        LblMetriUnit.setText("Mt");
                                 
-                                        jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 36)); // NOI18N
-                                        jLabel1.setText("METRI");
-                                        
-                                        TxtMetri = new javax.swing.JTextField();
-                                        TxtMetri.setBounds(609, 39, 122, 38);
-                                        panel.add(TxtMetri);
-                                        TxtMetri.setPreferredSize(new Dimension(100, 60));
-                                        
-                                                TxtMetri.setFont(new Font("Tahoma", Font.PLAIN, 36)); // NOI18N
-                                                TxtMetri.setText("99.00");
-                                                TxtMetri.setName("TxtMetri"); // NOI18N
+                                Box boxMetri = Box.createHorizontalBox();
+                                boxMetri.setBorder(new LineBorder(new Color(0, 0, 0)));
+                                boxMetri.setBounds(487, 38, 303, 60);
+                                panel.add(boxMetri);
+                                
+                                lblPeso = new JLabel();
+                                lblPeso.setBounds(200, 47, 85, 46);
+                                panel.add(lblPeso);
+                                lblPeso.setText("PESO");
+                                lblPeso.setFont(new Font("Tahoma", Font.PLAIN, 34));
+                                TxtPeso = new javax.swing.JTextField();
+                                TxtPeso.setEditable(false);
+                                TxtPeso.setBounds(295, 47, 130, 46);
+                                panel.add(TxtPeso);
+                                TxtPeso.setMinimumSize(new Dimension(0, 0));
+                                TxtPeso.setPreferredSize(new Dimension(100, 200));
+                                
+                                        TxtPeso.setFont(new Font("Tahoma", Font.PLAIN, 34)); // NOI18N
+                                        TxtPeso.setText("99.99");
+                                        TxtPeso.setName("TxtPeso");
+                                                
+                                                JLabel lblPesoUnit = new JLabel();
+                                                lblPesoUnit.setText("Kg");
+                                                lblPesoUnit.setFont(new Font("Tahoma", Font.PLAIN, 30));
+                                                lblPesoUnit.setBounds(435, 54, 42, 36);
+                                                panel.add(lblPesoUnit);
+                                                
+                                                Box boxPeso = Box.createHorizontalBox();
+                                                boxPeso.setBorder(new LineBorder(new Color(0, 0, 0)));
+                                                boxPeso.setBounds(187, 38, 291, 61);
+                                                panel.add(boxPeso);
                                                 
                                                 TxtFlag = new JTextField();
-                                                TxtFlag.setBounds(376, 8, 86, 20);
+                                                TxtFlag.setText("UGUIUIIUGG");
+                                                TxtFlag.setFont(new Font("Tahoma", Font.PLAIN, 16));
+                                                TxtFlag.setBounds(270, 8, 520, 25);
                                                 panel.add(TxtFlag);
                                                 TxtFlag.setColumns(10);
                                                 
-                                                JLabel label_1 = new JLabel();
-                                                label_1.setText("Kg");
-                                                label_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-                                                label_1.setBounds(440, 39, 49, 36);
-                                                panel.add(label_1);
+                                                JLabel lblMessaggi = new JLabel();
+                                                lblMessaggi.setText("MESSAGGI");
+                                                lblMessaggi.setFont(new Font("Tahoma", Font.PLAIN, 16));
+                                                lblMessaggi.setBounds(187, 9, 85, 25);
+                                                panel.add(lblMessaggi);
+                                                
+                                                JButton btnSetup = new JButton("SETUP");
+                                                btnSetup.setIcon(new ImageIcon("E:\\EclipseProject\\Colibri2\\src\\colibri\\image\\HP-Control-icon.png"));
+                                                btnSetup.setBounds(10, 12, 85, 87);
+                                                panel.add(btnSetup);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -210,12 +233,11 @@ public class Gui extends javax.swing.JFrame {
             }
         });
     }
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblMetri;
+    private javax.swing.JLabel LblMetriUnit;
     private javax.swing.JTextField TxtMetri;
     private javax.swing.JTextField TxtPeso;
     private final JPanel panel = new JPanel();
+    private JLabel lblPeso;
     private JTextField TxtFlag;
-    private JTextField textField;
-    private JLabel label;
 }
