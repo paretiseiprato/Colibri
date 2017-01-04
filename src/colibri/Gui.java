@@ -179,9 +179,13 @@ public class Gui extends javax.swing.JFrame {
                                                 lblMessaggi.setBounds(187, 9, 85, 25);
                                                 panel.add(lblMessaggi);
                                                 
-                                                JButton btnSetup = new JButton("SETUP");
+                                                JButton btnSetup = new JButton("");
+                                                btnSetup.addActionListener(new ActionListener() {
+                                                	public void actionPerformed(ActionEvent arg0) {
+                                                	}
+                                                });
                                                 btnSetup.setIcon(new ImageIcon("E:\\EclipseProject\\Colibri2\\src\\colibri\\image\\HP-Control-icon.png"));
-                                                btnSetup.setBounds(10, 12, 85, 87);
+                                                btnSetup.setBounds(10, 11, 111, 87);
                                                 panel.add(btnSetup);
 
         pack();
