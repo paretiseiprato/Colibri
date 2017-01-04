@@ -91,7 +91,7 @@ public class Gui extends javax.swing.JFrame {
                 
               //Attivazione del Thread Sql
                 dSql SqlLoop = new dSql();
-                SqlLoop.Connect();
+               SqlLoop.Connect();
                 SqlLoop.setDaemon(true);
                 SqlLoop.start();
                 
@@ -101,7 +101,31 @@ public class Gui extends javax.swing.JFrame {
         			    	
         			       TxtMetri.setText(dModbus.Metri);
         			       TxtPeso.setText(dModbus.Peso);
-        			       TxtFlag.setText(String.valueOf(dSql.Disposizione) );
+        			       //TxtFlag.setText(String.valueOf(dSql.Disposizione) );
+        			       String ModbusError = String.valueOf(Modbus.Error) + " " + "ERRORE PLC";
+        			       String SqlError = String.valueOf(dSql.Errore) + " " + "ERRORE DATABASE";
+        			       
+        			       if (Modbus.Error < 0) {       			    	   
+        			    		   
+        			    		   TxtFlag.setText(ModbusError);  
+        			    		   
+        			    	   
+						}
+        			       else{
+        			    	   TxtFlag.setText("PLC CONNESSO");
+        			    	   
+        			       }
+        			    	  
+        			      if (dSql.Errore < 0) {
+        			    	  
+        			    	  txtFlagSql.setText(SqlError);
+							
+						}
+        			      else{
+        			    	  
+        			    	  txtFlagSql.setText("DATABASE CONNESSO");
+        			      }
+        			       
         			     }
         			  }).start();
         		  
@@ -169,7 +193,7 @@ public class Gui extends javax.swing.JFrame {
                                                 TxtFlag = new JTextField();
                                                 TxtFlag.setText("UGUIUIIUGG");
                                                 TxtFlag.setFont(new Font("Tahoma", Font.PLAIN, 16));
-                                                TxtFlag.setBounds(270, 8, 520, 25);
+                                                TxtFlag.setBounds(270, 8, 247, 25);
                                                 panel.add(TxtFlag);
                                                 TxtFlag.setColumns(10);
                                                 
@@ -187,6 +211,13 @@ public class Gui extends javax.swing.JFrame {
                                                 btnSetup.setIcon(new ImageIcon("E:\\EclipseProject\\Colibri2\\src\\colibri\\image\\HP-Control-icon.png"));
                                                 btnSetup.setBounds(10, 11, 111, 87);
                                                 panel.add(btnSetup);
+                                                
+                                                txtFlagSql = new JTextField();
+                                                txtFlagSql.setText("UGUIUIIUGG");
+                                                txtFlagSql.setFont(new Font("Tahoma", Font.PLAIN, 16));
+                                                txtFlagSql.setColumns(10);
+                                                txtFlagSql.setBounds(543, 8, 247, 25);
+                                                panel.add(txtFlagSql);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -244,4 +275,5 @@ public class Gui extends javax.swing.JFrame {
     private final JPanel panel = new JPanel();
     private JLabel lblPeso;
     private JTextField TxtFlag;
+    private JTextField txtFlagSql;
 }

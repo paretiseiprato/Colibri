@@ -16,9 +16,11 @@ public class dSql extends Thread{
 	static int Disposizione;
 	String dbURL;
 	int Status;
+	static int Errore;
+	final String MachineNumber = "2";
 	Modbus ModbusData = new Modbus();
 	
-	public int Connect() {
+	public void Connect() {
 	
 	try {
 		
@@ -28,17 +30,18 @@ public class dSql extends Thread{
 		Conn = DriverManager.getConnection(dbURL);
 		if (Conn != null) {
 		    System.out.println("Connected");
-		    return 0;
+		    
+		    Errore = 0;
 		    
 		}
 		else {
-			return -1;
+			Errore = -1;
 		}
 		
 	} catch (SQLException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
-		return -2;
+		Errore = -2;
 	}
 	//return 0;
 	}
@@ -51,7 +54,7 @@ public class dSql extends Thread{
 
 	
 		
-		String SQL = "SELECT * FROM TblFlag WHERE idArrotolatore = 2";
+		String SQL = "SELECT * FROM TblFlag WHERE idArrotolatore = " + MachineNumber;
 		
 
 		while (true) 
@@ -73,9 +76,10 @@ public class dSql extends Thread{
 	            
 				sleep(500);
 			} catch (InterruptedException | SQLException e)
-			{				
+			{	
+				Errore = -1;
 				e.printStackTrace();
-				Disposizione = -1;
+				
 			}
 			
 		      switch (Disposizione) {
@@ -89,15 +93,23 @@ public class dSql extends Thread{
 							   String Metri = dModbus.Metri;
 	        			       String Peso = dModbus.Peso;
 							try {
-								String QueryDati = "UPDATE TblFlag SET Metri =" + Metri + ", Peso = " + Peso + " WHERE idArrotolatore = 2";//UPDATE TblFlag SET [IdArrotolatore] ='2' WHERE id = 2
+								String QueryDati = "UPDATE TblFlag SET Metri =" + Metri + ", Peso = " + Peso + " WHERE idArrotolatore = " + MachineNumber;//UPDATE TblFlag SET [IdArrotolatore] ='2' WHERE id = 2
 								InvioDati = Conn.createStatement();										
 								InvioDati.executeUpdate(QueryDati);
 								sleep(500);
 								ResetFlag = Conn.createStatement();
-								String QueryReset = "UPDATE TblFlag SET FlagStato = '0' WHERE idArrotolatore = 2";																	
+								String QueryReset = "UPDATE TblFlag SET FlagStato = '0' WHERE idArrotolatore = " + MachineNumber;																	
 								ResetFlag.executeUpdate(QueryReset);
+								
+								/*if (Errore < 0) {
+									Statement ErrorFlag = Conn.createStatement();
+									String QueryError = "UPDATE TblFlag SET FlagStato = '-1' WHERE idArrotolatore = " + MachineNumber;																	
+									ErrorFlag.executeUpdate(QueryError);
+									
+								}*/
 							} catch (SQLException | InterruptedException e) {
 								// TODO Auto-generated catch block
+								Errore = -3;
 								e.printStackTrace();
 							}			
 							
@@ -105,14 +117,15 @@ public class dSql extends Thread{
 						case 2:
 							break;
 						case 3:
-							ModbusData.Reset();
+							int[] NumReset = {0,1};
+							ModbusData.WriteRegisterString(6, NumReset);
 				try {
 					ResetFlag = Conn.createStatement();
-					String QueryReset = "UPDATE TblFlag SET FlagStato = '0' WHERE idArrotolatore = 2";																	
+					String QueryReset = "UPDATE TblFlag SET FlagStato = '0' WHERE idArrotolatore = " + MachineNumber;																	
 					ResetFlag.executeUpdate(QueryReset);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch blocktakoda
-					
+					Errore = -4;
 					e.printStackTrace();
 				}
 					

@@ -20,7 +20,7 @@ public class Modbus{
     
     
 	ModbusClient modbusClient;
-	ModbusClient modbusReset;
+	ModbusClient modbusWrite;
 	static int Error;
 	//int[] Uno = {1};
 	
@@ -30,8 +30,8 @@ public class Modbus{
     public Modbus() {
         modbusClient = new ModbusClient("127.0.0.1", 502);
         modbusClient.setConnectionTimeout(3000);
-        modbusReset = new ModbusClient("127.0.0.1", 502);
-	    modbusReset.setConnectionTimeout(3000);
+        modbusWrite = new ModbusClient("127.0.0.1", 502);
+	    modbusWrite.setConnectionTimeout(3000);
 	        
         try {
 			modbusClient.Connect();
@@ -43,7 +43,7 @@ public class Modbus{
 			e.printStackTrace();
 		}
         try {
-			modbusReset.Connect();
+			modbusWrite.Connect();
 			Error = 2;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -65,20 +65,20 @@ public class Modbus{
             
         }
     }
-	 public void Reset(){
+	 public void WriteRegisterString(int RegNumber,int[] DataWrite){
 		 
-		 int[] NumReset = {0,1};
+		 
 		// modbusReset = new ModbusClient("127.0.0.1", 502);
 	      //  modbusReset.setConnectionTimeout(3000);
 	        try {
-				modbusReset.Connect();
+				modbusWrite.Connect();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 	try {
-		modbusReset.WriteMultipleRegisters(6,NumReset);//ModbusClient.ConvertDoubleToTwoRegisters(1, ModbusClient.RegisterOrder.LowHigh)
+		modbusWrite.WriteMultipleRegisters(RegNumber,DataWrite);//ModbusClient.ConvertDoubleToTwoRegisters(1, ModbusClient.RegisterOrder.LowHigh)
 		// TODO Auto-generated catch block
 		
 	} catch (SocketException e) {
