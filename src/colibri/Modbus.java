@@ -19,35 +19,40 @@ import ModbusClient.ModbusClient;
 public class Modbus{
     
     
-	ModbusClient modbusClient;
+	ModbusClient modbusRead;
 	ModbusClient modbusWrite;
-	static int Error;
+	
+	String IpModbus = "127.0.0.1";
 	//int[] Uno = {1};
 	
 	//int InvertData = ModbusClient.ConvertRegistersToDouble(Uno, ModbusClient.RegisterOrder.HighLow);
 	
-	 
+	
     public Modbus() {
-        modbusClient = new ModbusClient("127.0.0.1", 502);
-        modbusClient.setConnectionTimeout(3000);
-        modbusWrite = new ModbusClient("127.0.0.1", 502);
+        modbusRead = new ModbusClient(IpModbus, 502);
+        modbusRead.setConnectionTimeout(3000);
+        
+        modbusWrite = new ModbusClient(IpModbus, 502);
 	    modbusWrite.setConnectionTimeout(3000);
 	        
         try {
-			modbusClient.Connect();
-			Error = 1;
+			modbusRead.Connect();
+			Flag.ErroreModbus = 1;
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			if (!modbusClient.isConnected()){}
-			Error = -1;
+			if (!modbusRead.isConnected()){}
+			Flag.ErroreModbus = -1;
 			e.printStackTrace();
 		}
+        
         try {
 			modbusWrite.Connect();
-			Error = 2;
+			Flag.ErroreModbus = 2;
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Error = -2;
+			Flag.ErroreModbus = -2;
 			e.printStackTrace();
 		}
     }
@@ -56,7 +61,7 @@ public class Modbus{
     try {
           
  //Write Float value to Register 10 and 11
-          int[] Register = modbusClient.ReadHoldingRegisters(RegNumber, 2) ;
+          int[] Register = modbusRead.ReadHoldingRegisters(RegNumber, 2) ;
           int  RetRegister = ModbusClient.ConvertRegistersToDouble(Register, ModbusClient.RegisterOrder.HighLow);
           return String.valueOf(RetRegister);
           

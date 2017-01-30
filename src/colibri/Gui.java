@@ -23,13 +23,25 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.Dialog.ModalityType;
+
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
+import javax.xml.ws.FaultAction;
+
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.MediaTracker;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 /**
  *
  * @author Damiano Pareti
@@ -53,6 +65,7 @@ public class Gui extends javax.swing.JFrame {
     	setPreferredSize(new Dimension(800, 110));
         
         initComponents();
+        
     }
 
     /**
@@ -65,7 +78,7 @@ public class Gui extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setLocation(new java.awt.Point(200, 200));
+        setLocation(new java.awt.Point(0, 480));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 formComponentMoved(evt);
@@ -84,28 +97,56 @@ public class Gui extends javax.swing.JFrame {
                 this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
                 this.setVisible(true);
         	  */
-        		//Attivazione del Thread Modbus
-                dModbus ModbusLoop = new dModbus();
-                ModbusLoop.setDaemon(true);
-                ModbusLoop.start();
-                
-              //Attivazione del Thread Sql
-                dSql SqlLoop = new dSql();
-               SqlLoop.Connect();
-                SqlLoop.setDaemon(true);
-                SqlLoop.start();
+        		if (Flag.senzaModbus == true) {
+        			
+            		//Attivazione del Thread Modbus
+                    dModbus ModbusLoop = new dModbus();
+                    ModbusLoop.setDaemon(true);
+                    ModbusLoop.start();        			
+					
+				}
+        		else {
+					Flag.ErroreModbus = -1;
+				}
+        		
+                if (Flag.senzaDb == true) {
+                	
+                    //Attivazione del Thread Sql
+                    dSql SqlLoop = new dSql();
+                    SqlLoop.Connect();
+                    SqlLoop.setDaemon(true);
+                    SqlLoop.start();
+					
+				}
+                else {
+                	
+					Flag.erroreDb = -1;			
+
+					
+				}
+
                 
                 //Ativazione del timer di lettura ogni 100 ms
         		  new javax.swing.Timer(100, new ActionListener() {
         			     public void actionPerformed(ActionEvent e) {
         			    	
-        			       TxtMetri.setText(dModbus.Metri);
-        			       TxtPeso.setText(dModbus.Peso);
-        			       //TxtFlag.setText(String.valueOf(dSql.Disposizione) );
-        			       String ModbusError = String.valueOf(Modbus.Error) + " " + "ERRORE PLC";
-        			       String SqlError = String.valueOf(dSql.Errore) + " " + "ERRORE DATABASE";
+        			       if (Flag.senzaMetri == true) {
+							
+        			    	   TxtMetri.setText(dModbus.Metri);
+						}
         			       
-        			       if (Modbus.Error < 0) {       			    	   
+        			       
+        			       if (Flag.senzaPeso == true) {
+        			    	   
+        			    	   TxtPeso.setText( dModbus.Peso );
+							
+						}
+        			       
+        			       //TxtFlag.setText(String.valueOf(dSql.Disposizione) );
+        			       String ModbusError = String.valueOf(Flag.ErroreModbus) + " " + "ERRORE PLC";
+        			       String SqlError = String.valueOf(Flag.erroreDb) + " " + "ERRORE DATABASE";
+ ///////Gestione errori      			       
+        			       if (Flag.ErroreModbus < 0) {       			    	   
         			    		   
         			    		   TxtFlag.setText(ModbusError);  
         			    		   
@@ -116,7 +157,7 @@ public class Gui extends javax.swing.JFrame {
         			    	   
         			       }
         			    	  
-        			      if (dSql.Errore < 0) {
+        			      if (Flag.erroreDb < 0) {
         			    	  
         			    	  txtFlagSql.setText(SqlError);
 							
@@ -132,6 +173,7 @@ public class Gui extends javax.swing.JFrame {
         		  
         	}
         });
+        
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         getContentPane().add(panel);
         panel.setLayout(null);
@@ -169,6 +211,20 @@ public class Gui extends javax.swing.JFrame {
                                 lblPeso.setText("PESO");
                                 lblPeso.setFont(new Font("Tahoma", Font.PLAIN, 34));
                                 TxtPeso = new javax.swing.JTextField();
+                                TxtPeso.addMouseListener(new MouseAdapter() {
+                                	@Override
+                                	public void mouseClicked(MouseEvent arg0) {
+                                		
+                                		
+                                	NumKey Tastiera = new NumKey();
+                                	Tastiera.setModalityType(ModalityType.TOOLKIT_MODAL);;
+                                	Tastiera.setVisible(true);
+                                	
+                                	//Formatta testo con 2 decimali
+                                	TxtPeso.setText(String.format("%.2f", Tastiera.Result) );
+;		                      
+                                	}
+                                });
                                 TxtPeso.setEditable(false);
                                 TxtPeso.setBounds(295, 47, 130, 46);
                                 panel.add(TxtPeso);
@@ -191,6 +247,7 @@ public class Gui extends javax.swing.JFrame {
                                                 panel.add(boxPeso);
                                                 
                                                 TxtFlag = new JTextField();
+                                                TxtFlag.setBackground(Color.WHITE);
                                                 TxtFlag.setText("UGUIUIIUGG");
                                                 TxtFlag.setFont(new Font("Tahoma", Font.PLAIN, 16));
                                                 TxtFlag.setBounds(270, 8, 247, 25);
@@ -208,7 +265,7 @@ public class Gui extends javax.swing.JFrame {
                                                 	public void actionPerformed(ActionEvent arg0) {
                                                 	}
                                                 });
-                                                btnSetup.setIcon(new ImageIcon("E:\\EclipseProject\\Colibri2\\src\\colibri\\image\\HP-Control-icon.png"));
+                                                btnSetup.setIcon(new ImageIcon(Gui.class.getResource("/colibri/image/HP-Control-icon.png")));
                                                 btnSetup.setBounds(10, 11, 111, 87);
                                                 panel.add(btnSetup);
                                                 
@@ -224,13 +281,13 @@ public class Gui extends javax.swing.JFrame {
 
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
         // TODO add your handling code here:
-        this.setLocation(200,200);
+        this.setLocation(0,480);
     }//GEN-LAST:event_formComponentMoved
 
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
         // TODO add your handling code here:
         this.setState(NORMAL);
-        this.setLocation(200,200);
+        this.setLocation(0,480);
         this.setSize(800, 100);
     }//GEN-LAST:event_formWindowIconified
 
