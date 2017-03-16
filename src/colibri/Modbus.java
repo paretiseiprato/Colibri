@@ -22,7 +22,7 @@ public class Modbus{
 	ModbusClient modbusRead;
 	ModbusClient modbusWrite;
 	
-	String IpModbus = "127.0.0.1";
+	String IpModbus = "10.10.150.1";
 	//int[] Uno = {1};
 	
 	//int InvertData = ModbusClient.ConvertRegistersToDouble(Uno, ModbusClient.RegisterOrder.HighLow);

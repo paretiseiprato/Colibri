@@ -129,16 +129,29 @@ public class Gui extends javax.swing.JFrame {
                 //Ativazione del timer di lettura ogni 100 ms
         		  new javax.swing.Timer(100, new ActionListener() {
         			     public void actionPerformed(ActionEvent e) {
-        			    	
+        			  String sMetri =  dModbus.Metri;
+        			  String sPeso = dModbus.Peso;
+        			  float Metri = 0.0f;
+        			  float Peso = 0.0f;
+        			 try {
+        				 
+        				 Metri = Float.valueOf(sMetri)  / 100f ;
+            			 Peso = Float.valueOf(sPeso) / 10f ;
+						
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+        			 
+        			    
         			       if (Flag.senzaMetri == true) {
 							
-        			    	   TxtMetri.setText(dModbus.Metri);
+        			    	 TxtMetri.setText(String.format("%.2f", Metri) );
 						}
         			       
         			       
         			       if (Flag.senzaPeso == true) {
         			    	   
-        			    	   TxtPeso.setText( dModbus.Peso );
+        			    	 TxtPeso.setText( String.format("%.1f", Peso) );
 							
 						}
         			       
